@@ -16,7 +16,7 @@ public class mainGame {
 	Level lscape;
 	LandscapeDisplay display;
 	state myState;
-
+	KeyListener myKeyListener = new mainGameKeyListener();
 	
 	public mainGame(){
 		int xDim = 1000;
@@ -61,9 +61,13 @@ public class mainGame {
 		switch (myState){
 			
 			case STARTPLAYING:
+				System.out.println("Starting game");
+
 				display.addKeyListener(this.lscape.userBubble);
-				display.addKeyListener(new mainGameKeyListener());
+				display.addKeyListener(myKeyListener);
+			
 				display.displayLandscape();
+				
 				this.myState = state.PLAYING;
 				break;
 				
@@ -93,7 +97,7 @@ public class mainGame {
 				lscape.userBubble.stopAccelerationChange();
 				lscape.advance();
 				display.primaryUpdate();
-				display.removeKeyListener(lscape.userBubble);
+			//	display.removeKeyListener(lscape.userBubble);
 				break;
 				
 			case LOST: ;
@@ -101,7 +105,7 @@ public class mainGame {
 				lscape.userBubble.stopAccelerationChange();
 				lscape.advance();
 				display.primaryUpdate();
-				display.removeKeyListener(lscape.userBubble);
+				//display.removeKeyListener(lscape.userBubble);
 				break;
 			
 			case RESTART:
@@ -122,7 +126,7 @@ public class mainGame {
 	}
 	
 	private class mainGameKeyListener implements KeyListener{
-
+		
 		@Override
 		public void keyTyped(KeyEvent e) {
 			System.out.println("KEY TYPED");

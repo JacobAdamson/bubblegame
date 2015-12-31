@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
@@ -122,6 +123,8 @@ public class LandscapeDisplay extends JFrame
 			//required to make the bubble controlable
 			this.addKeyListener(((Level)l).userBubble);
 		}
+		
+		
 		
 		public void centerLandscape(){
 		canvas.cellZoom = true;
@@ -346,13 +349,14 @@ public class LandscapeDisplay extends JFrame
 		}
 		
 		public void addMenuListener(ActionListener e){
-			System.out.println("A");
 			if(this.menu != null){
-				System.out.println("B");
 				this.menu.button.addActionListener(e);
 			}
 		}
 		
+		public void addThisKeyListener(KeyListener e){
+			this.addKeyListener(e);
+		}
 		public void primaryUpdate() {
 				Graphics g = canvas.getGraphics();
 				canvas.paintComponent( g );
