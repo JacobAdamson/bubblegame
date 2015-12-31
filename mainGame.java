@@ -112,6 +112,8 @@ public class mainGame {
 				
 			case MENU: 
 				break;
+		default:
+			break;
 				
 			}
 			
