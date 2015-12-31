@@ -33,7 +33,14 @@ public class controlledBubble extends bubble implements KeyListener {
 		shouldUpdate = false;
 		
 	}
-	//public void setAcceleration(double ){}
+	
+	public void setAcceleration(double acceleration){
+		
+		
+		
+	}
+	
+	
 	public void stopAccelerationChange(){
 		acceleratingLeft = false;
 		acceleratingRight = false;

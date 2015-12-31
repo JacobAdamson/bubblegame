@@ -3,7 +3,7 @@ import java.util.Iterator;
 import java.util.Random;
 public class Landscape {
 	
-	LinkedList<Cell> llCell;
+	ArrayList<Cell> list;
 	
 	double width;
 	double height;
@@ -13,7 +13,7 @@ public class Landscape {
 	 * @param cols number of columns
 	 */
 	public Landscape(double width, double height){
-		llCell = new LinkedList<Cell>();
+		list = new ArrayList<Cell>();
 		this.width = width;
 		this.height = height;
 	}
@@ -25,14 +25,14 @@ public class Landscape {
 	 * fills the grid with dead cells
 	 */
 	public void reset(){
-		this.llCell.clear();	
+		this.list = new ArrayList<Cell>();
 	}
 	
 	/**
 	 * removes the object from the simulation
 	 */
 	public void remove(Object obj){
-		this.llCell.remove(obj);
+		this.list.remove(obj);
 	}
 	
 	/**
@@ -63,17 +63,13 @@ public class Landscape {
 	 * @param a Cell
 	 */
 	public void addAgent(Cell a){
-		this.llCell.add(a);
+		this.list.add(a);
 	}
 	
 	public ArrayList<Cell> getAgents(){
-		return this.llCell.toArrayList();
+		return this.list;
 	}
-	
-	public LinkedList<Cell> getLL(){
-		return this.llCell;
-	}
-	
+
 	
 	/**
 	 * Converts the grid into a string which looks like an board
@@ -85,7 +81,7 @@ public class Landscape {
 		Cell cell;
 		String returned = "";
 				
-		for(Iterator<Cell> iterator = this.llCell.iterator(); iterator.hasNext(); ){
+		for(Iterator<Cell> iterator = this.list.iterator(); iterator.hasNext(); ){
 			cell = iterator.next();
 			//System.out.println("Cell Location"+cell.getX()+ "  "+cell.getY());
 			if(!( cell.getX() < 0 || cell.getY()<0 || cell.getY() > this.getRows() || cell.getX() > this.getCols()))
@@ -115,7 +111,7 @@ public class Landscape {
 	 */
 	public ArrayList<Cell> getNeighbors( Cell qCell){
 		ArrayList<Cell> list = new ArrayList<Cell>();
-		for( Cell c: llCell){
+		for( Cell c: list){
 			if (qCell.isNeighbor(c))
 				list.add(c);
 			
@@ -130,10 +126,10 @@ public class Landscape {
 	 * Each cell is updated according to it's nieghbors. The new cells are put into a new grid. The new grid then replaces the old grid
 	 */
 	public void advance(){
-		ArrayList<Cell> cList = llCell.toShuffledList();
+	
 		Cell cell;
-		for( int i = 0; i < cList.size(); i++){
-			cell = cList.get(i);
+		for( int i = 0; i < list.size(); i++){
+			cell = list.get(i);
 			cell.updateState();
 		}
 		
