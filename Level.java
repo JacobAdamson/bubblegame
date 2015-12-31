@@ -13,7 +13,7 @@ public class Level extends Landscape{
 	
 	//returns true if this bubble is the largest
 	public boolean hasWon(){
-		for(Cell b:this.list){
+		for(Cell b:this.mainList){
 			if(b.size > this.userBubble.size)
 				return false;
 		}
@@ -21,7 +21,7 @@ public class Level extends Landscape{
 	}
 	
 	public boolean hasLost(){
-		for(Cell b:this.list){
+		for(Cell b:this.mainList){
 			if(b.size < this.userBubble.size)
 				return false;
 		}
@@ -30,9 +30,9 @@ public class Level extends Landscape{
 	
 	public void advance(){
 		super.advance();
-		for(Cell c:list){
+		for(Cell c:mainList){
 			if(c.size<=0)
-				list.remove(c);
+				mainList.remove(c);
 			
 		}
 	}

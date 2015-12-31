@@ -9,8 +9,8 @@ public class testLevel extends Level {
 		this.userBubble = new controlledBubble(0,0,this,10);
 		this.addAgent(new bubble(30,10,this,10));
 		this.addAgent(this.userBubble);
-		//Random r = new Random();
-		/*for(int i = 0; i < 1000; i++){
+		Random r = new Random();
+		for(int i = 0; i < 100; i++){
 			double x = r.nextDouble()*this.width;
 			double y = r.nextDouble()*this.height;
 			double xVelocity = r.nextDouble()*.5-.25;
@@ -18,7 +18,7 @@ public class testLevel extends Level {
 			double size = r.nextDouble()*r.nextDouble()*40+3;
 		
 			this.addAgent(new bubble(x,y,this,size,xVelocity,yVelocity));
-		}*/
+		}
 		
 	}
 

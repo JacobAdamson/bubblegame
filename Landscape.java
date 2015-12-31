@@ -3,7 +3,7 @@ import java.util.Iterator;
 import java.util.Random;
 public class Landscape {
 	
-	ArrayList<Cell> list;
+	ArrayList<Cell> mainList;
 	
 	double width;
 	double height;
@@ -13,7 +13,7 @@ public class Landscape {
 	 * @param cols number of columns
 	 */
 	public Landscape(double width, double height){
-		list = new ArrayList<Cell>();
+		mainList = new ArrayList<Cell>();
 		this.width = width;
 		this.height = height;
 	}
@@ -25,14 +25,14 @@ public class Landscape {
 	 * fills the grid with dead cells
 	 */
 	public void reset(){
-		this.list = new ArrayList<Cell>();
+		this.mainList = new ArrayList<Cell>();
 	}
 	
 	/**
 	 * removes the object from the simulation
 	 */
 	public void remove(Object obj){
-		this.list.remove(obj);
+		this.mainList.remove(obj);
 	}
 	
 	/**
@@ -63,11 +63,11 @@ public class Landscape {
 	 * @param a Cell
 	 */
 	public void addAgent(Cell a){
-		this.list.add(a);
+		this.mainList.add(a);
 	}
 	
 	public ArrayList<Cell> getAgents(){
-		return this.list;
+		return this.mainList;
 	}
 
 	
@@ -81,7 +81,7 @@ public class Landscape {
 		Cell cell;
 		String returned = "";
 				
-		for(Iterator<Cell> iterator = this.list.iterator(); iterator.hasNext(); ){
+		for(Iterator<Cell> iterator = this.mainList.iterator(); iterator.hasNext(); ){
 			cell = iterator.next();
 			//System.out.println("Cell Location"+cell.getX()+ "  "+cell.getY());
 			if(!( cell.getX() < 0 || cell.getY()<0 || cell.getY() > this.getRows() || cell.getX() > this.getCols()))
@@ -110,13 +110,13 @@ public class Landscape {
 	 * @return a list of cells within the radius
 	 */
 	public ArrayList<Cell> getNeighbors( Cell qCell){
-		ArrayList<Cell> list = new ArrayList<Cell>();
-		for( Cell c: list){
+		ArrayList<Cell> myList = new ArrayList<Cell>();
+		for( Cell c: mainList){
 			if (qCell.isNeighbor(c))
-				list.add(c);
+				myList.add(c);
 			
 		}
-		return list;
+		return myList;
 		
 		
 	}
@@ -128,8 +128,8 @@ public class Landscape {
 	public void advance(){
 	
 		Cell cell;
-		for( int i = 0; i < list.size(); i++){
-			cell = list.get(i);
+		for( int i = 0; i < mainList.size(); i++){
+			cell = mainList.get(i);
 			cell.updateState();
 		}
 		
