@@ -60,7 +60,7 @@ public class LandscapeDisplay extends JFrame
 		
 		public void displayLandscape(){
 			// create a panel in which to display the Landscape
-			System.out.println(this.scape.getWidth());
+	
 			this.remove(this.menu);
 			
 			this.canvas = new LandscapePanel(
@@ -150,7 +150,7 @@ public class LandscapeDisplay extends JFrame
 				public LandscapePanel(int width, int height)
 				{
 						super();
-						System.out.println(width);
+						
 						this.setPreferredSize(new Dimension(width, height));
 						this.setBackground(Color.white);
 						LandscapePanelMouseListener l = new LandscapePanelMouseListener();
@@ -180,8 +180,7 @@ public class LandscapeDisplay extends JFrame
 				    
 					// create the offscreen buffer and associated Graphics
 				    // the purpose is to keep the previous image on the screen until the new image is ready
-				    System.out.println(getWidth());
-				    System.out.println(getHeight());
+				 
 				    
 				    offscreen = createImage(getWidth(), getHeight()); 
 				    offgc = offscreen.getGraphics();

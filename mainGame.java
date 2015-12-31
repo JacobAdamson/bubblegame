@@ -123,6 +123,7 @@ public class mainGame {
 
 		@Override
 		public void keyTyped(KeyEvent e) {
+			System.out.println("KEY TYPED");
 			if(e.getKeyChar() == 'p'){
 				//toggles playstate
 				if(myState == state.PLAYING)
@@ -181,7 +182,7 @@ public class mainGame {
 	
 	public static void main(String args[]){
 		
-		mainGame game = new mainGame(new spiralGravityLevel(1000,1000));
+		mainGame game = new mainGame(new testLevel());
 		//mainGame game = new mainGame();
 		game.run();
 		

@@ -7,10 +7,10 @@ public class testLevel extends Level {
 		super(1000,1000);
 		// TODO Auto-generated constructor stub
 		this.userBubble = new controlledBubble(0,0,this,10);
-		this.addAgent(new Attractor(0,200,this,5,100));
+		this.addAgent(new bubble(30,10,this,10));
 		this.addAgent(this.userBubble);
-		Random r = new Random();
-		for(int i = 0; i < 1000; i++){
+		//Random r = new Random();
+		/*for(int i = 0; i < 1000; i++){
 			double x = r.nextDouble()*this.width;
 			double y = r.nextDouble()*this.height;
 			double xVelocity = r.nextDouble()*.5-.25;
@@ -18,7 +18,7 @@ public class testLevel extends Level {
 			double size = r.nextDouble()*r.nextDouble()*40+3;
 		
 			this.addAgent(new bubble(x,y,this,size,xVelocity,yVelocity));
-		}
+		}*/
 		
 	}
 
