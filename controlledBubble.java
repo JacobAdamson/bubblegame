@@ -10,7 +10,7 @@ public class controlledBubble extends bubble implements KeyListener {
 	private boolean acceleratingRight;
 	private boolean acceleratingUp;
 	private boolean acceleratingDown;
-	private final double rateOfAcceleration = .01;
+	private final double rateOfAcceleration = .1;
 	
 	private boolean shouldUpdate = true;
 	
@@ -30,7 +30,7 @@ public class controlledBubble extends bubble implements KeyListener {
 	}
 	
 	public void stopUpdate(){
-		shouldUpdate = false;
+		//shouldUpdate = false;
 		
 	}
 	
@@ -49,7 +49,7 @@ public class controlledBubble extends bubble implements KeyListener {
 	}
 	
 	public void updateState()
-	{
+	{	
 		if(acceleratingLeft)
 			this.xDir -= rateOfAcceleration;
 		if(acceleratingRight)
@@ -59,8 +59,10 @@ public class controlledBubble extends bubble implements KeyListener {
 		if(acceleratingDown)
 			this.yDir += rateOfAcceleration;
 		
-		if(shouldUpdate)
+		if(shouldUpdate){
 			super.updateState();
+		}
+			
 	}
 	
 

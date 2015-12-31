@@ -7,11 +7,11 @@ public class dynamicLevel extends boundedLevel {
 	public dynamicLevel(double width, double height) {
 		super(width, height);
 		
-		this.userBubble = new controlledBubble(0,0,this,20);
+		this.userBubble = new controlledBubble(25,25,this,20);
 		this.addAgent(userBubble);
 		
 		Random r = new Random();
-		for(int i = 0; i < 400; i++){
+		for(int i = 0; i < 10; i++){
 			double x = r.nextDouble()*this.width;
 			double y = r.nextDouble()*this.height;
 			double xVelocity = r.nextDouble()*.1-.05;

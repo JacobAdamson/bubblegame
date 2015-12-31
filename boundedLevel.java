@@ -18,8 +18,8 @@ public class boundedLevel extends Level {
 	public void advance(){
 		super.advance();
 		
-		ArrayList<Cell> cList= llCell.toShuffledList();
-		for(Cell myCell : cList){
+		
+		for(Cell myCell : list){
 			MoveableCell c = (MoveableCell) myCell;
 			if(c.x - c.size < 0){
 				c.x = c.size;

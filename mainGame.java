@@ -1,4 +1,6 @@
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -7,7 +9,7 @@ import java.util.Random;
 public class mainGame {
 
 	public enum state {
-		PLAYING,LOST,MENU,PAUSE,QUIT,WON,RESTART
+		PLAYING,LOST,MENU,PAUSE,QUIT,WON,RESTART, STARTPLAYING
 	}
 	
 	
@@ -25,9 +27,7 @@ public class mainGame {
 		//levels should take place within a landscape that has its own dimensions
 		this.lscape = myLevel;
 		display = new LandscapeDisplay(myLevel,1);
-		
-		display.addKeyListener(myLevel.userBubble);
-		display.addKeyListener(new mainGameListener());
+		display.addMenuListener(new mainGameButtonListener());
 	}
 	
 	public mainGame(Level l){
@@ -36,12 +36,10 @@ public class mainGame {
 		//levels should take place within a landscape that has its own dimensions
 		this.lscape = myLevel;
 		display = new LandscapeDisplay(myLevel,1);
-		
-		display.addKeyListener(myLevel.userBubble);
-		display.addKeyListener(new mainGameListener());
-		
-		
+		display.addMenuListener(new mainGameButtonListener());	
 	}
+	
+	
 	/**
 	* TODO add different levels
 	* TODO improve graphics 
@@ -56,10 +54,20 @@ public class mainGame {
 	
 	public void run()
 	{
-		this.myState = state.PLAYING;
+		this.myState = state.MENU;
 		//main state machine
 		while (this.myState != state.QUIT){
-			if(this.myState == state.PLAYING){
+		
+		switch (myState){
+			
+			case STARTPLAYING:
+				display.addKeyListener(this.lscape.userBubble);
+				display.addKeyListener(new mainGameKeyListener());
+				display.displayLandscape();
+				this.myState = state.PLAYING;
+				break;
+				
+			case PLAYING:
 				lscape.advance();
 				display.primaryUpdate();
 				
@@ -67,38 +75,43 @@ public class mainGame {
 					this.myState = state.WON;
 				if(lscape.hasLost())
 					this.myState = state.LOST;
+			
 				try {
 					Thread.sleep(2);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-			}
-			else if(this.myState == state.PAUSE){
+				break;
+				
+			case PAUSE:
 				System.out.println("Paused");
 				//TODO add a pause screen
-			}
-			else if(this.myState == state.WON){
+				break;
+				
+			case WON:
 				System.out.println("You WON!");
 				lscape.userBubble.stopAccelerationChange();
 				lscape.advance();
 				display.primaryUpdate();
 				display.removeKeyListener(lscape.userBubble);
-			}
-			else if (this.myState == state.LOST){
+				break;
+				
+			case LOST: ;
 				System.out.println("You LOST!");
 				lscape.userBubble.stopAccelerationChange();
 				lscape.advance();
 				display.primaryUpdate();
 				display.removeKeyListener(lscape.userBubble);
-			}
-			else if(this.myState == state.RESTART){
+				break;
+			
+			case RESTART:
 				lscape = new dynamicLevel(1000,1000);
 				display.changeLandscape(lscape);
 				this.myState = state.PLAYING;
-			}
-			else if(this.myState == state.MENU){
-				//if(display. == true)
-					//display
+				break;
+				
+			case MENU: 
+				break;
 				
 			}
 			
@@ -106,7 +119,7 @@ public class mainGame {
 
 	}
 	
-	private class mainGameListener implements KeyListener{
+	private class mainGameKeyListener implements KeyListener{
 
 		@Override
 		public void keyTyped(KeyEvent e) {
@@ -144,9 +157,32 @@ public class mainGame {
 		
 		
 	}
+	
+	private class mainGameButtonListener implements ActionListener{
+		private mainGameButtonListener(){
+			
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			String command = e.getActionCommand();
+			switch (command){
+			case "play":
+				myState = state.STARTPLAYING;
+				break;
+				
+			case "information":;
+				break;
+			}
+		}
+		
+	}
+	
 	public static void main(String args[]){
 		
 		mainGame game = new mainGame(new spiralGravityLevel(1000,1000));
+		//mainGame game = new mainGame();
 		game.run();
 		
 	}

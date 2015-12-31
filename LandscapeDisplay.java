@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
@@ -50,25 +51,27 @@ public class LandscapeDisplay extends JFrame
 				this.scale = scale;
 				
 				
-				//this.menu = new mainMenu(1000,1000);
-				//this.add(this.menu);
-				this.displayLandscape();
+				this.menu = new mainMenu(1000,1000);
+				this.add(this.menu);
+				//this.displayLandscape();
 				this.pack();
 				this.setVisible(true);
 		}
 		
 		public void displayLandscape(){
-		
 			// create a panel in which to display the Landscape
+			System.out.println(this.scape.getWidth());
+			this.remove(this.menu);
+			
 			this.canvas = new LandscapePanel(
 											(int) this.scape.getWidth() * this.scale,
 											(int) this.scape.getHeight() * this.scale);
 	
 			// add the panel to the window, layout, and display
 			this.add(this.canvas, BorderLayout.CENTER);
-			
-			
+			this.pack();
 		}
+		
 		/**
 		 * Saves an image of the display contents to a file.  The supplied
 		 * filename should have an extension supported by javax.imageio, e.g.
@@ -124,6 +127,7 @@ public class LandscapeDisplay extends JFrame
 		canvas.cellZoom = true;
 		canvas.cellCentered = true;
 		}
+		
 		private class LandscapePanel extends JPanel
 		{
 			
@@ -146,12 +150,15 @@ public class LandscapeDisplay extends JFrame
 				public LandscapePanel(int width, int height)
 				{
 						super();
+						System.out.println(width);
 						this.setPreferredSize(new Dimension(width, height));
 						this.setBackground(Color.white);
 						LandscapePanelMouseListener l = new LandscapePanelMouseListener();
+						
 						this.addMouseListener(l);
 						this.addMouseMotionListener(l);
 						this.addMouseWheelListener(l);
+						
 						setCentertoCell();
 						setScaletoCell();
 				}
@@ -173,6 +180,9 @@ public class LandscapeDisplay extends JFrame
 				    
 					// create the offscreen buffer and associated Graphics
 				    // the purpose is to keep the previous image on the screen until the new image is ready
+				    System.out.println(getWidth());
+				    System.out.println(getHeight());
+				    
 				    offscreen = createImage(getWidth(), getHeight()); 
 				    offgc = offscreen.getGraphics();
 				    
@@ -275,7 +285,7 @@ public class LandscapeDisplay extends JFrame
 				}
 				
 		}
-
+		
 		private class LandscapePanelMouseListener extends MouseAdapter{
 
 			private double prevX;
@@ -330,14 +340,19 @@ public class LandscapeDisplay extends JFrame
 					this.setPreferredSize(new Dimension(width, height));
 					this.setBackground(Color.white);
 					this.button = new JButton("PLAY");
+					this.button.setActionCommand("play");
 					this.add(button);
 			}
 			
-			
-			
-			
 		}
 		
+		public void addMenuListener(ActionListener e){
+			System.out.println("A");
+			if(this.menu != null){
+				System.out.println("B");
+				this.menu.button.addActionListener(e);
+			}
+		}
 		
 		public void primaryUpdate() {
 				Graphics g = canvas.getGraphics();
